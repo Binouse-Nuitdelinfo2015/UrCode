@@ -1,0 +1,10 @@
+~*
+*.pyc
+*.project
+.project/*
+*.class
+.class/*
+.classpath/*
+*.classpath
+*.settings
+.settings/*
