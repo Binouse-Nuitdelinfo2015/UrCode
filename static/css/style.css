@@ -1,19 +1,8 @@
-.mdl-layout__header
-{
-	background-color: 
-}
-
 /* ----------------------------------------------*/
-/* LISTE DES CATASTROPHES */
+/* DESIGN DE LA BOX DES CATASTROPHES */
 /* ----------------------------------------------*/
-.event-list
-{
-	width: 90%;
-	margin: auto;
-	padding-bottom: 20px;
-}
 
-.event-list .event-box
+.event-box
 {
 	background: #FFF;
 	padding: 20px;
@@ -21,12 +10,23 @@
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.event-list .event-box header
+.event-box header
 {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	border-bottom : solid #DDD 1px;
+}
+
+/* ----------------------------------------------*/
+/* LISTE DES CATASTROPHES */
+/* ----------------------------------------------*/
+
+.page-content
+{
+	width: 90%;
+	margin: auto;
+	padding-bottom: 20px;
 }
 
 .event-list .event-box header .catastrophe-name
@@ -41,6 +41,15 @@
 	color: #999;
 	margin-top: 0px;
 	margin-right: 20px;
+}
+
+/* ----------------------------------------------*/
+/* STATUTS CATASTROPHES */
+/* ----------------------------------------------*/
+
+.page-catastrophe .event-page .container
+{
+	margin-top: 50px;
 }
 
 /* ----------------------------------------------*/

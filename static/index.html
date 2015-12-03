@@ -34,69 +34,172 @@
                 </nav>
             </div>
             <main class="mdl-layout__content">
+                <!-- PAGE -->
                 <div class="page-content">
-                    <div class="mdl-grid">
-                        <div class="mdl-cell mdl-cell--12-col">
-                            <div class="mdl-card__supporting-text">
-                                <h1>
-                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
-                                        <i class="material-icons">autorenew</i>
-                                    </button>
-                                    En cours
-                                </h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="refresh-bar" ng-show="refreshStatus">
+                    <!--
+                    =================================================================
+                    =================================================================
+                                PAGE ACCUEIL
+                    =================================================================
+                    =================================================================
+                    -->
+                    <div class="page-accueil"> 
                         <div class="mdl-grid">
-                            <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
-                                Loading
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <div class="mdl-card__supporting-text">
+                                    <h1>
+                                    <!--
+                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
+                                            <i class="material-icons">autorenew</i>
+                                        </button>
+                                    -->
+                                        En cours
+                                    </h1>
+                                </div>
                             </div>
                         </div>
-                        <!-- MDL Progress Bar with Indeterminate Progress -->
-                        <div id="p2" style="width:100%" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-                    </div>
+                        <div id="refresh-bar" ng-show="refreshStatus">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+                                    Loading
+                                </div>
+                            </div>
+                            <!-- MDL Progress Bar with Indeterminate Progress -->
+                            <div id="p2" style="width:100%" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                        </div>
 
-                    <div id="refresh-bar" ng-show="errorState">
-                        <div class="mdl-grid">
-                            <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
-                                <h2>
-                                    Error !
-                                </h2>
-                                <p>
-                                    {{debug}}
-                                </p>
+                        <div id="refresh-bar" ng-show="errorState">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+                                    <h2>
+                                        Error !
+                                    </h2>
+                                    <p>
+                                        {{debug}}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- list start -->
-                    <div ng-init="refreshList()" id="api-list" class="event-list">
-                        <div class="event-box">
-                            <header>
-                              <h3 class="catastrophe-name">
-                                <!-- nom de la catastrophe -->
-                                {{catastrophe.name}} 
-                              </h3>
-                              <p class="last-update">Dernière mise à jour : {{catastrophe.lastUpdate}}</p>
-                            </header>
-                            <div ng-show="isOpen">
-                                <div class="container" id="{{api.name}}-details">
-                                  <h5 ng-show="api.nbGET > 0">
-                                  <!-- Description de la catastrophe -->
-                                      GET ({{catastrophe.nbGET}})
-                                  </h5>
+                        <!-- list start -->
+                        <div ng-init="refreshList()" id="api-list" class="event-list">
+                            <div class="event-box">
+                                <header>
+                                  <h3 class="catastrophe-name">
+                                    <!-- nom de la catastrophe -->
+                                    {{catastrophe.name}} 
+                                  </h3>
+                                  <p class="last-update">Dernière mise à jour : {{catastrophe.lastUpdate}}</p>
+                                </header>
+                                <div ng-show="isOpen">
+                                    <div class="container" id="{{api.name}}-details">
+                                      <h5 ng-show="api.nbGET > 0">
+                                      <!-- Description de la catastrophe -->
+                                          GET ({{catastrophe.nbGET}})
+                                      </h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- list end -->
-                    <footer class="main-footer">
-                        <div class="footer-content">
-                            <p>Alerte catastrophes &copy; 2015 - Sité créé pour la nuit de l'info 2015</p>
+
+                    <!--
+                    =================================================================
+                    =================================================================
+                                PAGE CATASTROPHE
+                    =================================================================
+                    =================================================================
+                    -->
+
+                    <div class="page-catastrophe">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <div class="mdl-card__supporting-text">
+                                    <h1>
+                                    <!--
+                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
+                                            <i class="material-icons">autorenew</i>
+                                        </button>
+                                    -->
+                                        {{catastrophe.name}}
+                                    </h1>
+                                </div>
+                            </div>
                         </div>
-                    </footer>
+                        <div id="refresh-bar" ng-show="refreshStatus">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+                                    Loading
+                                </div>
+                            </div>
+                            <!-- MDL Progress Bar with Indeterminate Progress -->
+                            <div id="p2" style="width:100%" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                        </div>
+
+                        <div id="refresh-bar" ng-show="errorState">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+                                    <h2>
+                                        Error !
+                                    </h2>
+                                    <p>
+                                        {{debug}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- list start -->
+                        <div ng-init="refreshList()" id="api-list" class="event-page">
+                            <div class="event-box">
+                                <header>
+                                  <h3 class="catastrophe-name">
+                                    <!-- Status de la catastrophe -->
+                                    {{catastrophe.status}} 
+                                  </h3>
+                                  <p class="last-update">Dernière mise à jour : {{catastrophe.lastUpdate}}</p>
+                                </header>
+                                <div ng-show="isOpen">
+                                    <div class="container" id="{{api.name}}-details">
+                                    <!-- Liste de toutes les actualités -->
+                                      <h5 ng-show="api.nbGET > 0">
+                                        <!-- nom du statut -->
+                                          GET ({{catastrophe.nbGET}})
+                                      </h5>
+                                        <!-- description du status -->
+                                      <p>{{catastrophe.description}}</p>
+                                    </div>
+
+                                    <div class="container" id="{{api.name}}-details">
+                                    <!-- Liste de toutes les actualités -->
+                                      <h5 ng-show="api.nbGET > 0">
+                                        <!-- nom du statut -->
+                                          GET ({{catastrophe.nbGET}})
+                                      </h5>
+                                        <!-- description du status -->
+                                      <p>{{catastrophe.description}}</p>
+                                    </div>
+
+                                    <div class="container" id="{{api.name}}-details">
+                                    <!-- Liste de toutes les actualités -->
+                                      <h5 ng-show="api.nbGET > 0">
+                                        <!-- nom du statut -->
+                                          GET ({{catastrophe.nbGET}})
+                                      </h5>
+                                        <!-- description du status -->
+                                      <p>{{catastrophe.description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- list end -->
+                <footer class="main-footer">
+                    <div class="footer-content">
+                        <p>Alerte catastrophes &copy; 2015 - Sité créé pour la nuit de l'info 2015</p>
+                    </div>
+                </footer>
             </main>
         </div>
 <!-- script -->
