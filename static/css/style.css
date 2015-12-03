@@ -12,18 +12,33 @@
 	margin: auto;
 	padding-bottom: 20px;
 }
-.event-list header
-{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
 
+.event-list .event-box
+{
+	background: #FFF;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.event-list header .last-update
+.event-list .event-box header
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-bottom : solid #DDD 1px;
+}
+
+.event-list .event-box header .catastrophe-name
+{
+	margin: 0;
+	margin-bottom: 15px;
+}
+
+.event-list .event-box header .last-update
 {
 	font-style: italic;
 	color: #999;
-	margin-top: 40px;
+	margin-top: 0px;
 	margin-right: 20px;
 }

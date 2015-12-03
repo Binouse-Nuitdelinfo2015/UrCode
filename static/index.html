@@ -43,7 +43,7 @@
                                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
                                         <i class="material-icons">autorenew</i>
                                     </button>
-                                    En cours:
+                                    En cours :
                                 </h1>
                             </div>
                         </div>
@@ -76,30 +76,23 @@
 
                     <!-- list start -->
                     <div ng-init="refreshList()" id="api-list" class="event-list">
-                        <table style="width:100%" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                            <tbody>
-                                <tr ng-repeat="api in apis">
-                                    <td style="padding-bottom:1em" class="mdl-data-table__cell--non-numeric" >
-                                        
-                                        <header>
-                                          <h3>
-                                            <!-- nom de la catastrophe -->
-                                            {{catastrophe.name}} 
-                                          </h3>
-                                          <p class="last-update">Dernière mise à jour : {{catastrophe.lastUpdate}}</p>
-                                        </header>
-                                        <div ng-show="isOpen">
-                                            <div class="container" id="{{api.name}}-details">
-                                              <h5 ng-show="api.nbGET > 0">
-                                              <!-- Description de la catastrophe -->
-                                                  GET ({{catastrophe.nbGET}})
-                                              </h5>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="event-box">
+                            <header>
+                              <h3 class="catastrophe-name">
+                                <!-- nom de la catastrophe -->
+                                {{catastrophe.name}} 
+                              </h3>
+                              <p class="last-update">Dernière mise à jour : {{catastrophe.lastUpdate}}</p>
+                            </header>
+                            <div ng-show="isOpen">
+                                <div class="container" id="{{api.name}}-details">
+                                  <h5 ng-show="api.nbGET > 0">
+                                  <!-- Description de la catastrophe -->
+                                      GET ({{catastrophe.nbGET}})
+                                  </h5>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- list end -->
 
