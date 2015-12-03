@@ -22,22 +22,8 @@
                     <span class="mdl-layout-title">Alerte catastrophes</span>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
-                    <!-- Search textfield -->
-<!--
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-                        <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
-                            <i class="material-icons">search</i>
-                        </label>
-                        <div class="mdl-textfield__expandable-holder">
-                            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" ng-model="searchText"/>
-                        </div>
-                    </div>
--->
                     <!-- Navigation. We hide it in small screens -->
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
-<!--
-                        <a class="mdl-navigation__link" href="/admin">Admin Panel</a>
--->
                         <a class="mdl-navigation__link" target="_blank" href="http://doc-apidsif.kermit.rd.francetelecom.fr/doku.php?id=bouchons:apimocks-howto">Help</a>
                     </nav>
                 </div>
@@ -45,9 +31,6 @@
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title">Alerte catastrophes</span>
                 <nav class="mdl-navigation">
-<!--
-                    <a class="mdl-navigation__link" href="/admin">Admin panel</a>
--->
                     <a class="mdl-navigation__link" target="_blank" href="http://doc-apidsif.kermit.rd.francetelecom.fr/doku.php?id=bouchons:apimocks-howto">Help</a>
                 </nav>
             </div>
@@ -97,9 +80,7 @@
                             <tbody>
                                 <tr ng-repeat="api in apis">
                                     <td style="padding-bottom:1em" class="mdl-data-table__cell--non-numeric" >
-                                        <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="isOpen=!isOpen; getMethods(api.nb)">
-                                            <i class="material-icons">more_vert</i>
-                                        </button>
+                                        
                                         <header>
                                           <h3>
                                             <!-- nom de la catastrophe -->
