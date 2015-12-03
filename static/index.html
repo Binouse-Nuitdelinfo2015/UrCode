@@ -5,10 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Mock-server Index</title>
         <!-- Importation du css material design de Google-->
-        <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.teal-indigo.min.css" />
+        <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.blue-light_blue.min.css" />
         <!-- Importation du css perso-->
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
+        <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -19,7 +19,7 @@
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                 <!-- Title -->
-                    <span class="mdl-layout-title">Mock server</span>
+                    <span class="mdl-layout-title">Alerte catastrophes</span>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
                     <!-- Search textfield -->
@@ -43,7 +43,7 @@
                 </div>
             </header>
             <div class="mdl-layout__drawer">
-                <span class="mdl-layout-title">Mock server</span>
+                <span class="mdl-layout-title">Alerte catastrophes</span>
                 <nav class="mdl-navigation">
 <!--
                     <a class="mdl-navigation__link" href="/admin">Admin panel</a>
@@ -60,7 +60,7 @@
                                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
                                         <i class="material-icons">autorenew</i>
                                     </button>
-                                    API list :
+                                    En cours:
                                 </h1>
                             </div>
                         </div>
@@ -109,10 +109,10 @@
                                         </header>
                                         <div ng-show="isOpen">
                                             <div class="container" id="{{api.name}}-details">
-                                              <h4 ng-show="api.nbGET > 0">
+                                              <h5 ng-show="api.nbGET > 0">
                                               <!-- Description de la catastrophe -->
                                                   GET ({{catastrophe.nbGET}})
-                                              </h4>
+                                              </h5>
                                             </div>
                                         </div>
                                     </td>
@@ -124,14 +124,6 @@
 
                 </div>
             </main>
-            <footer class="mdl-mini-footer">
-                <div class="mdl-mini-footer__left-section">
-                    <div class="mdl-logo">Mock server</div>
-                    <ul class="mdl-mini-footer__link-list">
-                        <li><a href="https://www.forge.orange-labs.fr/plugins/git/dsif-api/API-Mockserver">on OrangeForge repository</a></li>
-                    </ul>
-                </div>
-            </footer>
         </div>
 <!-- script -->
         <script>
