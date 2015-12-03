@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mockServer">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Mock-server Index</title>
+        <!-- Importation du css material design de Google-->
+        <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.teal-indigo.min.css" />
+        <!-- Importation du css perso-->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="apiListCtrl">
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                <!-- Title -->
+                    <span class="mdl-layout-title">Mock server</span>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- Search textfield -->
+<!--
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+                        <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <div class="mdl-textfield__expandable-holder">
+                            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" ng-model="searchText"/>
+                        </div>
+                    </div>
+-->
+                    <!-- Navigation. We hide it in small screens -->
+                    <nav class="mdl-navigation mdl-layout--large-screen-only">
+<!--
+                        <a class="mdl-navigation__link" href="/admin">Admin Panel</a>
+-->
+                        <a class="mdl-navigation__link" target="_blank" href="http://doc-apidsif.kermit.rd.francetelecom.fr/doku.php?id=bouchons:apimocks-howto">Help</a>
+                    </nav>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">Mock server</span>
+                <nav class="mdl-navigation">
+<!--
+                    <a class="mdl-navigation__link" href="/admin">Admin panel</a>
+-->
+                    <a class="mdl-navigation__link" target="_blank" href="http://doc-apidsif.kermit.rd.francetelecom.fr/doku.php?id=bouchons:apimocks-howto">Help</a>
+                </nav>
+            </div>
+            <main class="mdl-layout__content">
+                <div class="page-content">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--12-col">
+                            <div class="mdl-card__supporting-text">
+                                <h1>
+                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
+                                        <i class="material-icons">autorenew</i>
+                                    </button>
+                                    API list :
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div id="refresh-bar" ng-show="refreshStatus">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+                                Loading
+                            </div>
+                        </div>
+                        <!-- MDL Progress Bar with Indeterminate Progress -->
+                        <div id="p2" style="width:100%" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    </div>
+
+                    <div id="refresh-bar" ng-show="errorState">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+                                <h2>
+                                    Error !
+                                </h2>
+                                <p>
+                                    {{debug}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- list start -->
+                    <div ng-init="refreshList()" id="api-list" class="event-list">
+                        <table style="width:100%" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <tbody>
+                                <tr ng-repeat="api in apis">
+                                    <td style="padding-bottom:1em" class="mdl-data-table__cell--non-numeric" >
+                                        <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="isOpen=!isOpen; getMethods(api.nb)">
+                                            <i class="material-icons">more_vert</i>
+                                        </button>
+                                        <header>
+                                          <h3>
+                                            <!-- nom de la catastrophe -->
+                                            {{catastrophe.name}} 
+                                          </h3>
+                                          <p class="last-update">Dernière mise à jour : {{api.lastUpdate}}</p>
+                                        </header>
+                                        <div ng-show="isOpen">
+                                            <div class="container" id="{{api.name}}-details">
+                                              <h4 ng-show="api.nbGET > 0">
+                                              <!-- Description de la catastrophe -->
+                                                  GET ({{catastrophe.nbGET}})
+                                              </h4>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- list end -->
+
+                </div>
+            </main>
+            <footer class="mdl-mini-footer">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo">Mock server</div>
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href="https://www.forge.orange-labs.fr/plugins/git/dsif-api/API-Mockserver">on OrangeForge repository</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+<!-- script -->
+        <script>
+        /*
+var app = angular.module('mockServer', []);
+app.controller('apiListCtrl', function($scope, $http)
+{
+    // vars declaration and initialisation
+    $scope.apis = [];   // APIs list
+    $scope.debug = "";  // error message / debug purpose
+
+    // API list
+    $scope.refreshList = function()
+    {
+        $scope.refreshStatus = true;
+        $scope.errorState = false;
+        $scope.apis = []
+
+        $http({
+                method: 'GET',
+                url: '/admin'
+            }).then(function (response)
+                    {
+                        $scope.apis = response.data.records;
+                        for (var apiNb in $scope.apis)
+                        {
+                            $scope.apis[apiNb].nb = apiNb;
+                        }
+                        $scope.refreshStatus = false;
+                        window.componentHandler.upgradeDom();
+                    },
+                    function (data, status, header, config)
+                    {
+                        $scope.refreshStatus = false;
+                        $scope.errorState = true;
+                        $scope.debug = "";
+
+                        if(status)
+                            $scope.debug += status + " : ";
+
+                        if(data)
+                            $scope.debug += data;
+                    });
+
+    }
+
+    // API's method list
+    $scope.getMethods = function(apiNb)
+    {
+        $http({
+                method: 'GET',
+                url: ('/admin/' + $scope.apis[apiNb].name)
+            }).then(function (response)
+                    {
+                        // hide all categories
+                        $scope.apis[apiNb].nbDELETE = 0;
+                        $scope.apis[apiNb].nbGET = 0;
+                        $scope.apis[apiNb].nbPOST = 0;
+                        $scope.apis[apiNb].nbPUT = 0;
+                        // retrieve methods
+                        $scope.apis[apiNb].methods = response.data.records;
+                        //
+                        $scope.apis[apiNb].data = $scope.apis[apiNb].methods;   // only for debug
+                        // count how many method in each category
+                        for (var method in $scope.apis[apiNb].methods)
+                        {
+                            if ($scope.apis[apiNb].methods[method].method == 'GET')
+                                $scope.apis[apiNb].nbGET = $scope.apis[apiNb].nbGET + 1;
+                            if ($scope.apis[apiNb].methods[method].method == 'POST')
+                                $scope.apis[apiNb].nbPOST = $scope.apis[apiNb].nbPOST + 1;
+                            if ($scope.apis[apiNb].methods[method].method == 'PUT')
+                                $scope.apis[apiNb].nbPUT = $scope.apis[apiNb].nbPUT + 1;
+                            if ($scope.apis[apiNb].methods[method].method == 'DELETE')
+                                $scope.apis[apiNb].nbDELETE = $scope.apis[apiNb].nbDELETE + 1;
+                        }
+                    },
+                    function (response) {});
+    }
+});*/
+        </script>
+    </body>
+</html>

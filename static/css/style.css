@@ -1,0 +1,21 @@
+/* ----------------------------------------------*/
+/* LISTE DES CATASTROPHES */
+/* ----------------------------------------------*/
+.event-list
+{
+	width: 90%;
+	margin: auto;
+	padding-bottom: 20px;
+}
+.event-list header
+{
+	display: flex;
+	flex-direction: row;
+}
+
+.event-list header .last-update
+{
+	font-style: italic;
+	color: #999;
+	margin-top: 40px;
+}
