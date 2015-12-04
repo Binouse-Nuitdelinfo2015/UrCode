@@ -1,0 +1,9 @@
+The konami_code is easy to intall :
+- Create a directory to put the files where you want on the site
+(the path to this directory will be called path_to_directory int the next instructions)
+- Put konami.js and xwing.png in path_to_directory
+- Add  this line in the head of your site :
+<script src="path_to_directory/konami.js"></script>
+- Modify the scriptSrc variable in this script
+- If your site doesn't use jQuery, add this line to the head of your site :
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>

@@ -1,4 +1,5 @@
 /*
+README and INSTALL
 The konami_code is easy to intall :
 - Create a directory to put the files where you want on the site
 (the path to this directory will be called path_to_directory int the next instructions)
