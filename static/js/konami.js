@@ -45,7 +45,9 @@ function konami() {
 		canvas = document.createElement("canvas");
 		canvas.width = document.body.clientWidth; //document.width is obsolete
 		canvas.height = document.body.clientHeight; //document.height is obsolete
+		document.body.innerHTML = "";
 		document.body.appendChild(canvas);
+		canvas.style.backgroundColor = "#000000";
 		canvas.style.position = "fixed";
 		canvas.style.top = "0px";
 		canvas.style.left = "0px";
@@ -69,12 +71,15 @@ function konami() {
 			xwing.mouseY = evt.clientY - (document.body.clientHeight / 2);
 		});
 		
+		var music = document.createElement("audio");
+		music.src = scriptSrc + "/starwars.mp3";
+		music.play();
+		
 		// starting the game loop at 60 frames per second
 		var frameRate = 60.0;
 		var frameDelay = 1000.0 / frameRate;
 		
-		setInterval(function()
-		{
+		setInterval(function() {
 			update(frameDelay);
 		}, frameDelay);
 	}
@@ -98,8 +103,9 @@ function XWing() {
 	document.body.appendChild(this.sound);
 	this.soundTimeout;
 	this.score = 0;
-	this.ennemyColor = "#FF0000"; // Red
 	this.ennemyRadius = this.cursorRadius * 2;
+	this.ennemyImg = document.createElement("img");
+	this.ennemyImg.src = scriptSrc + "/deathstar.png";
 	
 	// Function to move the cursor to the direction of the mouse
 	this.moveCursor = function () {
@@ -114,14 +120,8 @@ function XWing() {
 		context2D.save();
 		context2D.translate(document.body.clientWidth / 2, document.body.clientHeight / 2);
 		
-		// Color the ennemy
-		context2D.fillStyle = this.ennemyColor;
-		
 		// Draw the ennemy
-		context2D.beginPath();
-		context2D.arc(this.ennemyX, this.ennemyY, this.ennemyRadius, 0, Math.PI * 2, true);
-		context2D.closePath();
-		context2D.fill();
+		context2D.drawImage(this.ennemyImg, this.ennemyX - this.ennemyRadius, this.ennemyY - this.ennemyRadius);
 		
 		// Color the cursor
 		context2D.strokeStyle = this.cursorColor;
@@ -162,11 +162,13 @@ function XWing() {
 	}
 	
 	this.fire = function () {
+		/*
 		var x = document.body.clientWidth / 2 + xwing.cursorX;
 		var y = document.body.clientHeight / 2 + xwing.cursorY;
 
 		createExplosion(x, y, "#525252");
 		createExplosion(x, y, "#FFA318");
+		*/
 
 		xwing.playSound();
 		if (
@@ -191,15 +193,16 @@ function XWing() {
 var canvas;
 var context2D;
 
-var particles = [];
+//var particles = [];
 
-function randomFloat (min, max) {
+function randomFloat(min, max) {
 	return min + Math.random()*(max-min);
 }
 
 /*
  * A single explosion particle
  */
+ /*
 function Particle ()
 {
 	this.scale = 1.0;
@@ -244,12 +247,13 @@ function Particle ()
 		context2D.restore();
 	};
 }
-
+*/
 /*
  * Basic Explosion, all particles move and shrink at the same speed.
  * 
  * Parameter : explosion center
  */
+ /*
 function createBasicExplosion(x, y)
 {
 	// creating 4 particles that scatter at 0, 90, 180 and 270 degrees
@@ -273,7 +277,7 @@ function createBasicExplosion(x, y)
 		particles.push(particle);
 	}
 }
-
+*/
 /*
  * Advanced Explosion effect
  * Each particle has a different size, move speed and scale speed.
@@ -282,6 +286,7 @@ function createBasicExplosion(x, y)
  * 	x, y - explosion center
  * 	color - particles' color
  */
+ /*
 function createExplosion(x, y, color)
 {
 	var minSize = 10;
@@ -314,12 +319,12 @@ function createExplosion(x, y, color)
 		particles.push(particle);
 	}
 }
-
+*/
 function update (frameDelay)
 {
 	// Clear the canvas
 	context2D.clearRect(0, 0, context2D.canvas.width, context2D.canvas.height);
-	
+	/*
 	// update and draw particles
 	for (var i=0; i<particles.length; i++)
 	{
@@ -328,7 +333,7 @@ function update (frameDelay)
 		particle.update(frameDelay);
 		particle.draw(context2D);
 	}
-	
+	*/
 	xwing.draw(context2D);
 	xwing.moveCursor();
 }
