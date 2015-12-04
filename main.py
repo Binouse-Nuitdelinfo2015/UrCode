@@ -48,8 +48,10 @@ class MainHandler(tornado.web.RequestHandler):
 
     def post(self):
         try:
-            action = self.get_argument("action")
-            print("action :", action)
+            nom = self.get_argument("sample1")
+            descrip = self.get_argument("sample5")
+            print("nom :", nom)
+            print("description", descrip)
         except tornado.web.HTTPError:   # no or wrong arguments
             pass
         self.write(open(filePath + "index.html", 'rb').read())
@@ -57,7 +59,8 @@ class MainHandler(tornado.web.RequestHandler):
 
 def main():
 
-    bdd.suprTables()
+    if os.path.isfile("example.db"):
+        bdd.suprTables()
     bdd.creaTables()
     bdd.creaTuples()
 
