@@ -74,6 +74,10 @@ function konami() {
 		var music = document.createElement("audio");
 		music.src = scriptSrc + "/starwars.mp3";
 		music.play();
+			music.addEventListener('ended', function() {
+			this.currentTime = 0;
+			this.play();
+		}, false);
 		
 		// starting the game loop at 60 frames per second
 		var frameRate = 60.0;
