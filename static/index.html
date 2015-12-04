@@ -48,7 +48,7 @@
                     =================================================================
                     =================================================================
                     -->
-                    <div class="page-accueil" ng-show="accueil">
+                    <div class="page-accueil" ng-hide="details">
                         <div class="mdl-grid">
                             <div class="mdl-cell mdl-cell--12-col">
                                 <div class="mdl-card__supporting-text">
@@ -92,7 +92,7 @@
                                 <div class="event-box-content">
                                     <header>
                                         <h3 class="catastrophe-name">
-                                            <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="getDetails(catastrophe.id);">
+                                            <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="details=true">
                                                 <i class="material-icons">more_vert</i>
                                             </button>
                                             <!-- nom de la catastrophe -->
@@ -167,9 +167,7 @@
                                     <!-- Status de la catastrophe -->
                                     {{catastrophe.status}}
                                   </h3>
-<!--
                                   <p class="last-update">Dernière mise à jour : {{catastrophe.lastUpdate}}</p>
--->
                                 </header>
                                 <div ng-show="isOpen">
                                     <div class="container" id="{{api.name}}-details">
@@ -199,7 +197,7 @@ app.controller('mainController', function($scope, $http)
     $scope.catastrophes = [];   // cata list
     $scope.debug = "";  // error message / debug purpose
     $scope.accueil = true;
-    $scope.details = true;
+    $scope.details = false;
 
     // API list
     $scope.refreshList = function()
@@ -234,8 +232,6 @@ app.controller('mainController', function($scope, $http)
 //////
     $scope.getDetails = function(id)
     {
-        accueil = false;
-        details = true;
         $http({
                 method: 'GET',
                 url: ('/API/' + $id)
