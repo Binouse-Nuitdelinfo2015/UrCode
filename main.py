@@ -80,7 +80,7 @@ def main():
         [
             (r'/static/img/(.*)', tornado.web.StaticFileHandler, {'path': 'static/img/'}),
             (r'/static/css/(.*)', tornado.web.StaticFileHandler, {'path': 'static/css/'}),
-            (r'/static/js/(.*)', tornado.web.StaticFileHandler, {'path': 'static/css/'}),
+            (r'/static/js/(.*)', tornado.web.StaticFileHandler, {'path': 'static/js/'}),
             (r"/admin", AdminHandler),
             (r"/admin/.*", AdminHandler),
             (r"/API/(.*)$", APIHandler),
