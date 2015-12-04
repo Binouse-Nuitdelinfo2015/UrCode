@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-                <script src="static/js/konami.js"></script>
+                <script src="/static/js/konami.js"></script>
     </head>
     <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="mainController">
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -57,7 +57,7 @@
                                             <i class="material-icons">autorenew</i>
                                         </button>
                                     -->
-                                        En cours
+                                        Catastrophes en cours
                                     </h1>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
                                     <h2>
-                                        Error !
+                                        Erreur ! :(
                                     </h2>
                                     <p>
                                         {{debug}}
@@ -87,20 +87,20 @@
 
                         <!-- list start -->
                         <div ng-init="refreshList()" id="api-list" class="event-list">
-                            <div class="event-box">
-                                <header>
-                                  <h3 class="catastrophe-name">
-                                    <!-- nom de la catastrophe -->
-                                    {{catastrophe.name}}
-                                  </h3>
-                                  <p class="last-update">Dernière mise à jour : {{catastrophe.lastUpdate}}</p>
-                                </header>
-                                <div ng-show="isOpen">
-                                    <div class="container" id="{{api.name}}-details">
-                                      <h5 ng-show="api.nbGET > 0">
-                                      <!-- Description de la catastrophe -->
-                                          GET ({{catastrophe.nbGET}})
-                                      </h5>
+                            <div  ng-repeat="catastrophe in catastrophes" class="event-box">
+                                <div class="event-box-content">
+                                    <header>
+                                      <h3 class="catastrophe-name">
+                                        <!-- nom de la catastrophe -->
+                                        {{catastrophe.Name}}
+                                      </h3>
+                                      <p class="last-update">Dernière mise à jour : {{catastrophe.DerniereActu.Date}}</p>
+                                    </header>
+                                    <div class="container" id="{{catastrophe.id}}-details">
+                                        <h5>
+                                            <!-- Description de la catastrophe -->
+                                            ({{catastrophe.DerniereActu.Description}})
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -179,11 +179,13 @@
                     </div>
                 </div>
                 <!-- list end -->
+                <!--
                 <footer class="main-footer">
                     <div class="footer-content">
                         <p>Alerte catastrophes &copy; 2015 - Sité créé pour la nuit de l'info 2015</p>
                     </div>
                 </footer>
+                -->
             </main>
         </div>
 <!-- script -->
@@ -205,14 +207,10 @@ app.controller('mainController', function($scope, $http)
 
         $http({
                 method: 'GET',
-                url: '/test'
+                url: '/API/test'
             }).then(function (response)
                     {
-                        $scope.catastrophes = response.data;
-                        //~ for (var cata in $scope.catastrophes)
-                        //~ {
-                            //~ $scope.catastrophes[cata].nb = apiNb;
-                        //~ }
+                        $scope.catastrophes = response.data.records;
                         $scope.refreshStatus = false;
                         window.componentHandler.upgradeDom();
                     },

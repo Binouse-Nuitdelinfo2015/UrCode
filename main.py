@@ -29,20 +29,36 @@ filePath = "static/"
 # Handler for api
 class APIHandler(tornado.web.RequestHandler):
     def get(self, path_request):
-        self.write("API [" + str(time.time()) + "]: GET " + path_request)
+        #self.write("API [" + str(time.time()) + "]: GET " + path_request)
         if path_request == "random":
             self.write(str(random.randint(0, 100)))
         elif path_request == "test":
             self.write(
                 json.dumps(
                     {
-                        "Name": "test",
-                        "Status": "test",
-                        "DerniereActu":
-                            {
-                                "Date": "test",
-                                "Description": "blablabla"
-                            }
+                        "records":
+                            [
+                                {
+                                    "id": "0",
+                                    "Name": "test",
+                                    "Status": "test",
+                                    "DerniereActu":
+                                        {
+                                            "Date": "123456789",
+                                            "Description": "blablabla"
+                                        }
+                                },
+                                {
+                                    "id": "0",
+                                    "Name": "test",
+                                    "Status": "test",
+                                    "DerniereActu":
+                                        {
+                                            "Date": "123456789",
+                                            "Description": "blablabla"
+                                        }
+                                }
+                            ]
                     }
                 )
             )
