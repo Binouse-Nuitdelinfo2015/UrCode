@@ -39,8 +39,11 @@ function konami() {
 	canvas = document.createElement("canvas");
 	canvas.width = document.body.clientWidth; //document.width is obsolete
 	canvas.height = document.body.clientHeight; //document.height is obsolete
-	canvas.style = "position: fixed; top: 0px; left: 0px; z-index: 100;";
 	document.body.appendChild(canvas);
+	canvas.style.position = "absolute";
+	canvas.style.top = "0px";
+	canvas.style.left = "0px";
+	canvas.style.zIndex = "1000";
 	
 	window.addEventListener("resize", function() {
 		canvas.width = document.body.clientWidth; //document.width is obsolete
@@ -87,11 +90,7 @@ function XWing() {
 	this.mouseX = 0, this.mouseY = 0; // Real mouse position
 	this.scale = 0.5; // Scale of the XWing compared to the source image
 	this.img = document.createElement("img");
-<<<<<<< HEAD
-	this.img.src = "konami_code/xwing.png";
-=======
 	this.img.src = scriptSrc + "/xwing.png";
->>>>>>> 06f0e5b6fafbbe0802bae7dfaf57fb0e164a18c6
 	
 	// Function to move the cursor to the direction of the mouse
 	this.moveCursor = function() {
