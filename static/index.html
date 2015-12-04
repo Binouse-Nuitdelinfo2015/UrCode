@@ -3,17 +3,19 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <!-- Importation du css material design de Google-->
         <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.blue-light_blue.min.css" />
         <!-- Importation du css perso-->
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
         <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-				<script src="konami_code/konami.js"></script>
+                <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+                <script src="static/js/konami.js"></script>
     </head>
     <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="mainController">
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -32,7 +34,7 @@
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title">Alerte catastrophes</span>
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" target="_blank" href="http://doc-apidsif.kermit.rd.francetelecom.fr/doku.php?id=bouchons:apimocks-howto">Help</a>
+                    <a class="mdl-navigation__link" target="_blank" href="">Help</a>
                 </nav>
             </div>
             <main class="mdl-layout__content">
@@ -150,7 +152,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- list start -->
                         <div ng-init="refreshList()" id="api-list" class="event-page">
                             <div class="event-box">
@@ -168,26 +169,7 @@
                                         <!-- nom du statut -->
                                           GET ({{catastrophe.nbGET}})
                                       </h5>
-                                        <!-- description du status -->
-                                      <p>{{catastrophe.description}}</p>
-                                    </div>
-
-                                    <div class="container" id="{{api.name}}-details">
-                                    <!-- Liste de toutes les actualités -->
-                                      <h5 ng-show="api.nbGET > 0">
-                                        <!-- nom du statut -->
-                                          GET ({{catastrophe.nbGET}})
-                                      </h5>
-                                        <!-- description du status -->
-                                      <p>{{catastrophe.description}}</p>
-                                    </div>
-
-                                    <div class="container" id="{{api.name}}-details">
-                                    <!-- Liste de toutes les actualités -->
-                                      <h5 ng-show="api.nbGET > 0">
-                                        <!-- nom du statut -->
-                                          GET ({{catastrophe.nbGET}})
-                                      </h5>
+                                      <p>Publié à {{catastrophe.statusDate}} par {{catastrophe.user}}</p>
                                         <!-- description du status -->
                                       <p>{{catastrophe.description}}</p>
                                     </div>
@@ -284,4 +266,3 @@ app.controller('mainController', function($scope, $http)
 });
         </script>
     </body>
-</html>
