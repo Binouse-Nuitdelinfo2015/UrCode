@@ -53,11 +53,6 @@
                             <div class="mdl-cell mdl-cell--12-col">
                                 <div class="mdl-card__supporting-text">
                                     <h1>
-                                    <!--
-                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
-                                            <i class="material-icons">autorenew</i>
-                                        </button>
-                                    -->
                                         Catastrophes en cours
                                     </h1>
                                 </div>
@@ -92,7 +87,7 @@
                                 <div class="event-box-content">
                                     <header>
                                         <h3 class="catastrophe-name">
-                                            <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="details=true">
+                                            <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="details=true; getDetails(catastrophe.id)">
                                                 <i class="material-icons">more_vert</i>
                                             </button>
                                             <!-- nom de la catastrophe -->
@@ -127,11 +122,6 @@
                             <div class="mdl-cell mdl-cell--12-col">
                                 <div class="mdl-card__supporting-text">
                                     <h1>
-                                    <!--
-                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
-                                            <i class="material-icons">autorenew</i>
-                                        </button>
-                                    -->
                                         {{catastrophe.name}}
                                     </h1>
                                 </div>
@@ -196,7 +186,6 @@ app.controller('mainController', function($scope, $http)
     // vars declaration and initialisation
     $scope.catastrophes = [];   // cata list
     $scope.debug = "";  // error message / debug purpose
-    $scope.accueil = true;
     $scope.details = false;
 
     // API list
@@ -204,7 +193,7 @@ app.controller('mainController', function($scope, $http)
     {
         $scope.refreshStatus = true;
         $scope.errorState = false;
-        $scope.apis = []
+        $scope.apis = [];
 
         $http({
                 method: 'GET',
@@ -240,7 +229,18 @@ app.controller('mainController', function($scope, $http)
                         // retrieve methods
                         //~ $scope.apis[apiNb].methods = response.data.records;
                     },
-                    function (response) {});
+                    function (response)
+                    {
+                        $scope.refreshStatus = false;
+                        $scope.errorState = true;
+                        $scope.debug = "";
+
+                        if(status)
+                            $scope.debug += status + " : ";
+
+                        if(data)
+                            $scope.debug += data;
+                    });
     }
 });
         </script>
