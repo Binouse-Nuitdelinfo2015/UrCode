@@ -55,11 +55,6 @@
                             <div class="mdl-cell mdl-cell--12-col">
                                 <div class="mdl-card__supporting-text">
                                     <h1>
-                                    <!--
-                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
-                                            <i class="material-icons">autorenew</i>
-                                        </button>
-                                    -->
                                         Catastrophes en cours
                                     </h1>
                                 </div>
@@ -94,7 +89,7 @@
                                 <div class="event-box-content">
                                     <header>
                                         <h3 class="catastrophe-name">
-                                            <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="details=true">
+                                            <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="details=true; getDetails(catastrophe.id)">
                                                 <i class="material-icons">more_vert</i>
                                             </button>
                                             <!-- nom de la catastrophe -->
@@ -129,11 +124,6 @@
                             <div class="mdl-cell mdl-cell--12-col">
                                 <div class="mdl-card__supporting-text">
                                     <h1>
-                                    <!--
-                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="refresh-btn" ng-click="refreshList()">
-                                            <i class="material-icons">autorenew</i>
-                                        </button>
-                                    -->
                                         {{catastrophe.name}}
                                     </h1>
                                 </div>
