@@ -8,13 +8,41 @@ def creaTables():
     c = conn.cursor()
 
     # Create table
-    c.execute('''CREATE TABLE utilisateur (idU INTEGER, nom text, prenom text, type text, PRIMARY KEY (idU))''')
-    c.execute(
-        '''CREATE TABLE note (idN INTEGER, fk_idU INTEGER, valeur INTEGER, FOREIGN KEY (fk_idU) REFERENCES utilisateur(idU) ON DELETE CASCADE, PRIMARY KEY (idN))''')
-    c.execute(
-        '''CREATE TABLE cata (idC INTEGER, appellation text, dateDebut text, dateFin text, lieu text, gravite INTEGER, PRIMARY KEY (idC))''')
-    c.execute(
-        '''CREATE TABLE actu (idDate text, fk_idC INTEGER, fk_idU INTEGER, information text, FOREIGN KEY (fk_idC) REFERENCES cata(idC)ON DELETE CASCADE, FOREIGN KEY (fk_idU) REFERENCES utilisateur(idU) ON DELETE CASCADE, PRIMARY KEY (idDate, fk_idC, fk_idU))''')
+    c.execute('''CREATE TABLE utilisateur
+			 (idU INTEGER,
+			nom text,
+			prenom text,
+			type text,
+			PRIMARY KEY (idU))''')
+    c.execute('''CREATE TABLE note
+			 (idN INTEGER,
+			fk_idU INTEGER,
+			valeur INTEGER,
+			FOREIGN KEY (fk_idU)
+				REFERENCES utilisateur(idU)
+				ON DELETE CASCADE,
+			PRIMARY KEY (idN))''')
+    c.execute('''CREATE TABLE cata
+			 (idC INTEGER,
+			appellation text,
+			dateDebut text,
+			dateFin text,
+			lieu text,
+			gravite INTEGER,
+			PRIMARY KEY (idC))''')
+
+    c.execute('''CREATE TABLE actu
+			 (idDate text,
+			fk_idC INTEGER,
+			fk_idU INTEGER,
+			information text,
+			FOREIGN KEY (fk_idC)
+				REFERENCES cata(idC)
+				ON DELETE CASCADE,
+			FOREIGN KEY (fk_idU)
+				REFERENCES utilisateur(idU)
+				ON DELETE CASCADE,
+			PRIMARY KEY (idDate, fk_idC, fk_idU))''')
 
     # Save (commit) the changes
     conn.commit()
@@ -75,12 +103,13 @@ def setCata(appellation, dateDebut, dateFin, lieu, gravite):
     conn.close()
 
 
-def setActu(pk_date, fk_idC, fk_idU, information):
+def setActu(date, fk_idC, fk_idU, information):
     conn = sqlite3.connect('example.db')
 
     c = conn.cursor()
 
-    c.execute("insert into Actu(fk_idC , fk_idU, information) values (?,?,?)", (fk_idC, fk_idU, information))
+    c.execute("insert into Actu(idDate, fk_idC , fk_idU, information) values (?,?,?,?)",
+              (date, fk_idC, fk_idU, information))
     conn.commit()
     conn.close()
 
@@ -179,6 +208,18 @@ def getActuP(idA):
     return tout
 
 
+def getActuC(idC):
+    conn = sqlite3.connect('example.db')
+
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM actu where fk_idC=" + str(idC) + " order by idDate desc")
+
+    tout = c.fetchall()
+    conn.close()
+    return tout
+
+
 def creaTuples():
     setUti("chewbaca", "Chewi", "passant")
     setUti("C3PO", "6PO", "Famille")
@@ -202,17 +243,5 @@ def creaTuples():
 
     setActu("24/10/92", 1, 1, "whesh ya du vent")
     setActu("24/10/92", 1, 2, "whesh tavu")
-    setActu("25/10/92", 1, 1, "whesh ya toujourduvent")
+    setActu("25/10/92", 1, 1, "whesh ya toujours du vent")
     setActu("05/11/93", 1, 3, "wesh trop pas du vent")
-
-# ~ def main():
-# ~ suprTables()
-# ~ creaTables()
-# ~ setUti("test","test1","inutile")
-# ~ setUti("test2","test1","inutile")
-# ~ for row in getUti():
-# ~ print(row)
-# ~ for row in getUtiP(1):
-# ~ print(row)
-
-# ~ main()

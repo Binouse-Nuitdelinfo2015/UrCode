@@ -34,36 +34,13 @@ class APIHandler(tornado.web.RequestHandler):
         if path_request == "random":
             self.write(str(random.randint(0, 100)))
         elif path_request == "test":
-            self.write(
-                json.dumps(
-                    {
-                        "records":
-                            [
-                                {
-                                    "id": "0",
-                                    "Name": "test",
-                                    "Status": "test",
-                                    "DerniereActu":
-                                        {
-                                            "Date": "123456789",
-                                            "Description": "blablabla"
-                                        }
-                                },
-                                {
-                                    "id": "0",
-                                    "Name": "test",
-                                    "Status": "test",
-                                    "DerniereActu":
-                                        {
-                                            "Date": "123456789",
-                                            "Description": "blablabla"
-                                        }
-                                }
-                            ]
-                    }
-                )
-            )
-
+            jsonVar = {"records": []}
+            catas = bdd.getCata()
+            for cata in catas:
+                print(cata)
+                jsonVar["records"].append({"id": cata[0], "Name": cata[1], "Status": "", "DerniereActu": {"Date": "01234567890", "Description": "blablabla"}})
+            print(jsonVar)
+            self.write(json.dumps(jsonVar))
 
 # Handler for ressources
 class RscHandler(tornado.web.RequestHandler):
