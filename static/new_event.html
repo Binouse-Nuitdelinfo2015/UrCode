@@ -58,29 +58,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="refresh-bar" ng-show="refreshStatus">
-                            <div class="mdl-grid">
-                                <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
-                                    Loading
-                                </div>
-                            </div>
-                            <!-- MDL Progress Bar with Indeterminate Progress -->
-                            <div id="p2" style="width:100%" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-                        </div>
-
-                        <div id="refresh-bar" ng-show="errorState">
-                            <div class="mdl-grid">
-                                <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
-                                    <h2>
-                                        Erreur ! :(
-                                    </h2>
-                                    <p>
-                                        {{debug}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- list start -->
                         <div ng-init="refreshList()" id="api-list" class="event-list">
                             <div  ng-repeat="catastrophe in catastrophes" class="event-box">
@@ -106,71 +83,4 @@
                 </div>
             </main>
         </div>
-<!-- script -->
-        <script>
-
-// var app = angular.module('myApp', []);
-// app.controller('mainController', function($scope, $http)
-// {
-//     // vars declaration and initialisation
-//     $scope.catastrophes = [];   // cata list
-//     $scope.debug = "";  // error message / debug purpose
-//     $scope.details = false;
-
-//     // API list
-//     $scope.refreshList = function()
-//     {
-//         $scope.refreshStatus = true;
-//         $scope.errorState = false;
-//         $scope.apis = [];
-
-//         $http({
-//                 method: 'GET',
-//                 url: '/API/test'
-//             }).then(function (response)
-//                     {
-//                         $scope.catastrophes = response.data.records;
-//                         $scope.refreshStatus = false;
-//                         window.componentHandler.upgradeDom();
-//                     },
-//                     function (data, status, header, config)
-//                     {
-//                         $scope.refreshStatus = false;
-//                         $scope.errorState = true;
-//                         $scope.debug = "";
-
-//                         if(status)
-//                             $scope.debug += status + " : ";
-
-//                         if(data)
-//                             $scope.debug += data;
-//                     });
-//     }
-
-// //////
-//     $scope.getDetails = function(id)
-//     {
-//         $http({
-//                 method: 'GET',
-//                 url: ('/API/' + $id)
-//             }).then(function (response)
-//                     {
-//                         // retrieve methods
-//                         //~ $scope.apis[apiNb].methods = response.data.records;
-//                     },
-//                     function (response)
-//                     {
-//                         $scope.refreshStatus = false;
-//                         $scope.errorState = true;
-//                         $scope.debug = "";
-
-//                         if(status)
-//                             $scope.debug += status + " : ";
-
-//                         if(data)
-//                             $scope.debug += data;
-//                     });
-//     }
-// });
-        </script>
     </body>
