@@ -1,13 +1,21 @@
 /*
 The konami_code is easy to intall :
-- Create a konami_code directory at the root of the site
-- Put konami.js and xwing.png in this directory
+- Create a directory to put the files where you want on the site
+(the path to this directory will be called path_to_directory int the next instructions)
+- Put konami.js and xwing.png in path_to_directory
 - Add  this line in the head of your site :
-<script src="konami_code/konami.js"></script>
+<script src="path_to_directory/konami.js"></script>
+- Modify the scriptSrc variable in this script
 - If your site doesn't use jQuery, add this line to the head of your site :
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 */
 
+<<<<<<< HEAD
+=======
+// Set the variable to path_to_directory (here /static/js)
+var scriptSrc = "/static/js";
+
+>>>>>>> 06f0e5b6fafbbe0802bae7dfaf57fb0e164a18c6
 // TODO Remove jQuery because I don't use it enough
 // Replace it by JS
 
@@ -82,7 +90,11 @@ function XWing() {
 	this.mouseX = 0, this.mouseY = 0; // Real mouse position
 	this.scale = 0.5; // Scale of the XWing compared to the source image
 	this.img = document.createElement("img");
+<<<<<<< HEAD
 	this.img.src = "konami_code/xwing.png";
+=======
+	this.img.src = scriptSrc + "/xwing.png";
+>>>>>>> 06f0e5b6fafbbe0802bae7dfaf57fb0e164a18c6
 	
 	// Function to move the cursor to the direction of the mouse
 	this.moveCursor = function() {
