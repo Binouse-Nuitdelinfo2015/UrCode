@@ -188,7 +188,6 @@ app.controller('mainController', function($scope, $http)
     // vars declaration and initialisation
     $scope.catastrophes = [];   // cata list
     $scope.debug = "";  // error message / debug purpose
-    $scope.accueil = true;
     $scope.details = false;
 
     // API list
@@ -196,7 +195,7 @@ app.controller('mainController', function($scope, $http)
     {
         $scope.refreshStatus = true;
         $scope.errorState = false;
-        $scope.apis = []
+        $scope.apis = [];
 
         $http({
                 method: 'GET',
@@ -232,7 +231,18 @@ app.controller('mainController', function($scope, $http)
                         // retrieve methods
                         //~ $scope.apis[apiNb].methods = response.data.records;
                     },
-                    function (response) {});
+                    function (response)
+                    {
+                        $scope.refreshStatus = false;
+                        $scope.errorState = true;
+                        $scope.debug = "";
+
+                        if(status)
+                            $scope.debug += status + " : ";
+
+                        if(data)
+                            $scope.debug += data;
+                    });
     }
 });
         </script>
