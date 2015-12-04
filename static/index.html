@@ -57,7 +57,7 @@
                                             <i class="material-icons">autorenew</i>
                                         </button>
                                     -->
-                                        En cours
+                                        Catastrophes en cours
                                     </h1>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
                                     <h2>
-                                        Error !
+                                        Erreur ! :(
                                     </h2>
                                     <p>
                                         {{debug}}
@@ -87,8 +87,8 @@
 
                         <!-- list start -->
                         <div ng-init="refreshList()" id="api-list" class="event-list">
-                            <div  ng-repeat="catastrophe in catastrophes">
-                                <div class="event-box">
+                            <div  ng-repeat="catastrophe in catastrophes" class="event-box">
+                                <div class="event-box-content">
                                     <header>
                                       <h3 class="catastrophe-name">
                                         <!-- nom de la catastrophe -->

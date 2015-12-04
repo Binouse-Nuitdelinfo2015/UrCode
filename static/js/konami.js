@@ -8,6 +8,8 @@ The konami_code is easy to intall :
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 */
 
+var scriptSrc = this.src.replace("konami.js", "");
+
 // TODO Remove jQuery because I don't use it enough
 // Replace it by JS
 
@@ -82,7 +84,7 @@ function XWing() {
 	this.mouseX = 0, this.mouseY = 0; // Real mouse position
 	this.scale = 0.5; // Scale of the XWing compared to the source image
 	this.img = document.createElement("img");
-	this.img.src = "konami_code/xwing.png";
+	this.img.src = scriptSrc + "xwing.png";
 	
 	// Function to move the cursor to the direction of the mouse
 	this.moveCursor = function() {
