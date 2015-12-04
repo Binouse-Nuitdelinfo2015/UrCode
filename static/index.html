@@ -3,6 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <!-- Importation du css material design de Google-->
         <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.blue-light_blue.min.css" />
         <!-- Importation du css perso-->
@@ -148,7 +150,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- list start -->
                         <div ng-init="refreshList()" id="api-list" class="event-page">
                             <div class="event-box">
@@ -166,26 +167,7 @@
                                         <!-- nom du statut -->
                                           GET ({{catastrophe.nbGET}})
                                       </h5>
-                                        <!-- description du status -->
-                                      <p>{{catastrophe.description}}</p>
-                                    </div>
-
-                                    <div class="container" id="{{api.name}}-details">
-                                    <!-- Liste de toutes les actualités -->
-                                      <h5 ng-show="api.nbGET > 0">
-                                        <!-- nom du statut -->
-                                          GET ({{catastrophe.nbGET}})
-                                      </h5>
-                                        <!-- description du status -->
-                                      <p>{{catastrophe.description}}</p>
-                                    </div>
-
-                                    <div class="container" id="{{api.name}}-details">
-                                    <!-- Liste de toutes les actualités -->
-                                      <h5 ng-show="api.nbGET > 0">
-                                        <!-- nom du statut -->
-                                          GET ({{catastrophe.nbGET}})
-                                      </h5>
+                                      <p>Publié à {{catastrophe.statusDate}} par {{catastrophe.user}}</p>
                                         <!-- description du status -->
                                       <p>{{catastrophe.description}}</p>
                                     </div>
@@ -282,4 +264,3 @@ app.controller('apiListCtrl', function($scope, $http)
 });*/
         </script>
     </body>
-</html>
