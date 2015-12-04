@@ -15,6 +15,7 @@ var scriptSrc = "/static/js";
 
 // TODO Remove jQuery because I don't use it enough
 // Replace it by JS
+// TODO Resolve the problem of infinite particles array
 
 //Haut, haut, bas, bas, gauche, droite, gauche, droite, B, A
 var k = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
@@ -31,53 +32,52 @@ $(document).keydown(function (e) {
     }
 });
 
+
+var isKonami = false;
 /*
 This is the function called when the konami code is done 
 */
 function konami() {
-	// canvas and 2D context initialization
-	canvas = document.createElement("canvas");
-	canvas.width = document.body.clientWidth; //document.width is obsolete
-	canvas.height = document.body.clientHeight; //document.height is obsolete
-	document.body.appendChild(canvas);
-	canvas.style.position = "absolute";
-	canvas.style.top = "0px";
-	canvas.style.left = "0px";
-	canvas.style.zIndex = "1000";
-	
-	window.addEventListener("resize", function() {
+	// Prevent the konami code to be done 2 times
+	if (!isKonami) {
+		isKonami = true;
+		// canvas and 2D context initialization
+		canvas = document.createElement("canvas");
 		canvas.width = document.body.clientWidth; //document.width is obsolete
 		canvas.height = document.body.clientHeight; //document.height is obsolete
-	});
-	
-	context2D = canvas.getContext("2d");
-	
-	xwing = new XWing();
-	
-	document.addEventListener("click", function(evt) {
-		var x = document.body.clientWidth / 2 + xwing.cursorX;
-		var y = document.body.clientHeight / 2 + xwing.cursorY;
+		document.body.appendChild(canvas);
+		canvas.style.position = "fixed";
+		canvas.style.top = "0px";
+		canvas.style.left = "0px";
+		canvas.style.zIndex = "1000";
 		
-		createExplosion(x, y, "#525252");
-		createExplosion(x, y, "#FFA318");
+		window.addEventListener("resize", function() {
+			canvas.width = document.body.clientWidth; //document.width is obsolete
+			canvas.height = document.body.clientHeight; //document.height is obsolete
+		});
 		
-		xwing.playSound();
-	});
-	
-	document.addEventListener("mousemove", function(evt) {
-		xwing.mouseX = evt.clientX - (document.body.clientWidth / 2);
-		xwing.mouseY = evt.clientY - (document.body.clientHeight / 2);
-	});
-	
-	// starting the game loop at 60 frames per second
-	var frameRate = 60.0;
-	var frameDelay = 1000.0 / frameRate;
-	
-	setInterval(function()
-	{
-		update(frameDelay);
+		context2D = canvas.getContext("2d");
 		
-	}, frameDelay);
+		xwing = new XWing();
+		
+		document.addEventListener("click", function(evt) {
+			xwing.fire();
+		});
+		
+		document.addEventListener("mousemove", function(evt) {
+			xwing.mouseX = evt.clientX - (document.body.clientWidth / 2);
+			xwing.mouseY = evt.clientY - (document.body.clientHeight / 2);
+		});
+		
+		// starting the game loop at 60 frames per second
+		var frameRate = 60.0;
+		var frameDelay = 1000.0 / frameRate;
+		
+		setInterval(function()
+		{
+			update(frameDelay);
+		}, frameDelay);
+	}
 }
 
 /*
@@ -86,9 +86,9 @@ XWing constructor
 function XWing() {
 	// The cursor is where the XWing will fire
 	this.cursorX = 0, this.cursorY = 0;
-	this.cursorCoef = 10; // If it is high, the cursor will be slower
+	this.cursorCoef = 5; // If it is high, the cursor will be slower
 	this.cursorRadius = 15; // Size of the cursor
-	this.cursorColor = "#FF0000"; // Red
+	this.cursorColor = "#00FF00"; // Green
 	this.mouseX = 0, this.mouseY = 0; // Real mouse position
 	this.scale = 0.5; // Scale of the XWing compared to the source image
 	this.img = document.createElement("img");
@@ -97,6 +97,9 @@ function XWing() {
 	this.sound.src = scriptSrc + "/xwing.mp3";
 	document.body.appendChild(this.sound);
 	this.soundTimeout;
+	this.score = 0;
+	this.ennemyColor = "#FF0000"; // Red
+	this.ennemyRadius = this.cursorRadius * 2;
 	
 	// Function to move the cursor to the direction of the mouse
 	this.moveCursor = function () {
@@ -110,6 +113,15 @@ function XWing() {
 		// Changing context2D
 		context2D.save();
 		context2D.translate(document.body.clientWidth / 2, document.body.clientHeight / 2);
+		
+		// Color the ennemy
+		context2D.fillStyle = this.ennemyColor;
+		
+		// Draw the ennemy
+		context2D.beginPath();
+		context2D.arc(this.ennemyX, this.ennemyY, this.ennemyRadius, 0, Math.PI * 2, true);
+		context2D.closePath();
+		context2D.fill();
 		
 		// Color the cursor
 		context2D.strokeStyle = this.cursorColor;
@@ -125,9 +137,15 @@ function XWing() {
 		context2D.closePath();
 		context2D.stroke();
 		
+		// Draw text
+		context2D.rotate(Math.PI * this.cursorX / document.body.clientWidth);
+		context2D.font = "30px Verdana";
+		context2D.textAlign="center";
+		context2D.fillStyle = this.cursorColor;
+		context2D.fillText("Score: " + this.score, 0, this.img.height / 2);
+		
 		// Draw the XWing
 		context2D.scale(this.scale, this.scale);
-		context2D.rotate(Math.PI * this.cursorX / document.body.clientWidth);
 		context2D.drawImage(this.img, - this.img.width / 2, - this.img.height / 2);
 		
 		// Restore the saved context2D
@@ -142,6 +160,32 @@ function XWing() {
 				xwing.sound.currentTime = 0;
 		}, 500);
 	}
+	
+	this.fire = function () {
+		var x = document.body.clientWidth / 2 + xwing.cursorX;
+		var y = document.body.clientHeight / 2 + xwing.cursorY;
+
+		createExplosion(x, y, "#525252");
+		createExplosion(x, y, "#FFA318");
+
+		xwing.playSound();
+		if (
+			this.cursorX <= this.ennemyX + this.ennemyRadius &&
+			this.cursorX >= this.ennemyX - this.ennemyRadius &&
+			this.cursorY <= this.ennemyY + this.ennemyRadius &&
+			this.cursorY >= this.ennemyY - this.ennemyRadius
+		) {
+			xwing.score++;
+			xwing.newEnnemy();
+		}
+	}
+	
+	this.newEnnemy = function () {
+		this.ennemyX = randomFloat(- canvas.width / 2 + this.cursorRadius, canvas.width / 2 - this.cursorRadius);
+		this.ennemyY = randomFloat(- canvas.height / 2 + this.cursorRadius, canvas.height / 2 - this.cursorRadius);
+	}
+	
+	this.newEnnemy();
 }
 
 var canvas;
@@ -149,8 +193,7 @@ var context2D;
 
 var particles = [];
 
-function randomFloat (min, max)
-{
+function randomFloat (min, max) {
 	return min + Math.random()*(max-min);
 }
 
@@ -274,8 +317,7 @@ function createExplosion(x, y, color)
 
 function update (frameDelay)
 {
-	// draw a white background to clear canvas
-	//context2D.fillStyle = "rgba(0, 0, 0, 0)";
+	// Clear the canvas
 	context2D.clearRect(0, 0, context2D.canvas.width, context2D.canvas.height);
 	
 	// update and draw particles
