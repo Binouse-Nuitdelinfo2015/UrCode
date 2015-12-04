@@ -79,7 +79,7 @@ def main():
     application = tornado.web.Application(
         [
             (r'/static/img/(.*)', tornado.web.StaticFileHandler, {'path': 'static/img/'}),
-            (r'/static/css(.*)', tornado.web.StaticFileHandler, {'path': 'static/css/'}),
+            (r'/static/css/(.*)', tornado.web.StaticFileHandler, {'path': 'static/css/'}),
             (r"/admin", AdminHandler),
             (r"/admin/.*", AdminHandler),
             (r"/API/(.*)$", APIHandler),

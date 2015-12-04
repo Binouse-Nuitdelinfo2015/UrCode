@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="mockServer">
+<html lang="en" ng-app="myApp">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,7 @@
 				<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 				<script src="konami_code/konami.js"></script>
     </head>
-    <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="apiListCtrl">
+    <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="mainController">
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
@@ -188,12 +188,12 @@
         </div>
 <!-- script -->
         <script>
-        /*
-var app = angular.module('mockServer', []);
-app.controller('apiListCtrl', function($scope, $http)
+
+var app = angular.module('myApp', []);
+app.controller('mainController', function($scope, $http)
 {
     // vars declaration and initialisation
-    $scope.apis = [];   // APIs list
+    $scope.catastrophes = [];   // cata list
     $scope.debug = "";  // error message / debug purpose
 
     // API list
@@ -205,14 +205,14 @@ app.controller('apiListCtrl', function($scope, $http)
 
         $http({
                 method: 'GET',
-                url: '/admin'
+                url: '/test'
             }).then(function (response)
                     {
-                        $scope.apis = response.data.records;
-                        for (var apiNb in $scope.apis)
-                        {
-                            $scope.apis[apiNb].nb = apiNb;
-                        }
+                        $scope.catastrophes = response.data;
+                        //~ for (var cata in $scope.catastrophes)
+                        //~ {
+                            //~ $scope.catastrophes[cata].nb = apiNb;
+                        //~ }
                         $scope.refreshStatus = false;
                         window.componentHandler.upgradeDom();
                     },
@@ -231,38 +231,38 @@ app.controller('apiListCtrl', function($scope, $http)
 
     }
 
-    // API's method list
-    $scope.getMethods = function(apiNb)
-    {
-        $http({
-                method: 'GET',
-                url: ('/admin/' + $scope.apis[apiNb].name)
-            }).then(function (response)
-                    {
-                        // hide all categories
-                        $scope.apis[apiNb].nbDELETE = 0;
-                        $scope.apis[apiNb].nbGET = 0;
-                        $scope.apis[apiNb].nbPOST = 0;
-                        $scope.apis[apiNb].nbPUT = 0;
-                        // retrieve methods
-                        $scope.apis[apiNb].methods = response.data.records;
-                        //
-                        $scope.apis[apiNb].data = $scope.apis[apiNb].methods;   // only for debug
-                        // count how many method in each category
-                        for (var method in $scope.apis[apiNb].methods)
-                        {
-                            if ($scope.apis[apiNb].methods[method].method == 'GET')
-                                $scope.apis[apiNb].nbGET = $scope.apis[apiNb].nbGET + 1;
-                            if ($scope.apis[apiNb].methods[method].method == 'POST')
-                                $scope.apis[apiNb].nbPOST = $scope.apis[apiNb].nbPOST + 1;
-                            if ($scope.apis[apiNb].methods[method].method == 'PUT')
-                                $scope.apis[apiNb].nbPUT = $scope.apis[apiNb].nbPUT + 1;
-                            if ($scope.apis[apiNb].methods[method].method == 'DELETE')
-                                $scope.apis[apiNb].nbDELETE = $scope.apis[apiNb].nbDELETE + 1;
-                        }
-                    },
-                    function (response) {});
-    }
-});*/
+    //~ // API's method list
+    //~ $scope.getMethods = function(apiNb)
+    //~ {
+        //~ $http({
+                //~ method: 'GET',
+                //~ url: ('/admin/' + $scope.apis[apiNb].name)
+            //~ }).then(function (response)
+                    //~ {
+                        //~ // hide all categories
+                        //~ $scope.apis[apiNb].nbDELETE = 0;
+                        //~ $scope.apis[apiNb].nbGET = 0;
+                        //~ $scope.apis[apiNb].nbPOST = 0;
+                        //~ $scope.apis[apiNb].nbPUT = 0;
+                        //~ // retrieve methods
+                        //~ $scope.apis[apiNb].methods = response.data.records;
+                        //~ //
+                        //~ $scope.apis[apiNb].data = $scope.apis[apiNb].methods;   // only for debug
+                        //~ // count how many method in each category
+                        //~ for (var method in $scope.apis[apiNb].methods)
+                        //~ {
+                            //~ if ($scope.apis[apiNb].methods[method].method == 'GET')
+                                //~ $scope.apis[apiNb].nbGET = $scope.apis[apiNb].nbGET + 1;
+                            //~ if ($scope.apis[apiNb].methods[method].method == 'POST')
+                                //~ $scope.apis[apiNb].nbPOST = $scope.apis[apiNb].nbPOST + 1;
+                            //~ if ($scope.apis[apiNb].methods[method].method == 'PUT')
+                                //~ $scope.apis[apiNb].nbPUT = $scope.apis[apiNb].nbPUT + 1;
+                            //~ if ($scope.apis[apiNb].methods[method].method == 'DELETE')
+                                //~ $scope.apis[apiNb].nbDELETE = $scope.apis[apiNb].nbDELETE + 1;
+                        //~ }
+                    //~ },
+                    //~ function (response) {});
+    //~ }
+});
         </script>
     </body>
