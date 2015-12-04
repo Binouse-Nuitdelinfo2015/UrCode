@@ -50,7 +50,7 @@
                     =================================================================
                     =================================================================
                     -->
-                    <div class="page-accueil">
+                    <div class="page-accueil" ng-show="accueil">
                         <div class="mdl-grid">
                             <div class="mdl-cell mdl-cell--12-col">
                                 <div class="mdl-card__supporting-text">
@@ -93,11 +93,17 @@
                             <div  ng-repeat="catastrophe in catastrophes" class="event-box">
                                 <div class="event-box-content">
                                     <header>
-                                      <h3 class="catastrophe-name">
-                                        <!-- nom de la catastrophe -->
-                                        {{catastrophe.Name}}
-                                      </h3>
-                                      <p class="last-update">Dernière mise à jour : {{catastrophe.DerniereActu.Date}}</p>
+                                        <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="getDetails(catastrophe.id);">
+                                            <i class="material-icons">more_vert</i>
+                                        </button>
+                                        <h3 class="catastrophe-name">
+                                            <!-- nom de la catastrophe -->
+                                            {{catastrophe.Name}}
+                                        </h3>
+                                        <p class="last-update">
+                                            Dernière mise à jour :
+                                            {{catastrophe.DerniereActu.Date}}
+                                        </p>
                                     </header>
                                     <div class="container" id="{{catastrophe.id}}-details">
                                         <h5>
@@ -118,7 +124,7 @@
                     =================================================================
                     -->
 
-                    <div class="page-catastrophe">
+                    <div class="page-catastrophe" ng-show="details">
                         <div class="mdl-grid">
                             <div class="mdl-cell mdl-cell--12-col">
                                 <div class="mdl-card__supporting-text">
@@ -156,14 +162,16 @@
                             </div>
                         </div>
                         <!-- list start -->
-                        <div ng-init="refreshList()" id="api-list" class="event-page">
+                        <div id="api-list" class="event-page">
                             <div class="event-box">
                                 <header>
                                   <h3 class="catastrophe-name">
                                     <!-- Status de la catastrophe -->
                                     {{catastrophe.status}}
                                   </h3>
+<!--
                                   <p class="last-update">Dernière mise à jour : {{catastrophe.lastUpdate}}</p>
+-->
                                 </header>
                                 <div ng-show="isOpen">
                                     <div class="container" id="{{api.name}}-details">
@@ -192,6 +200,8 @@ app.controller('mainController', function($scope, $http)
     // vars declaration and initialisation
     $scope.catastrophes = [];   // cata list
     $scope.debug = "";  // error message / debug purpose
+    $scope.accueil = true;
+    $scope.details = true;
 
     // API list
     $scope.refreshList = function()
@@ -221,41 +231,23 @@ app.controller('mainController', function($scope, $http)
                         if(data)
                             $scope.debug += data;
                     });
-
     }
 
-    //~ // API's method list
-    //~ $scope.getMethods = function(apiNb)
-    //~ {
-        //~ $http({
-                //~ method: 'GET',
-                //~ url: ('/admin/' + $scope.apis[apiNb].name)
-            //~ }).then(function (response)
-                    //~ {
-                        //~ // hide all categories
-                        //~ $scope.apis[apiNb].nbDELETE = 0;
-                        //~ $scope.apis[apiNb].nbGET = 0;
-                        //~ $scope.apis[apiNb].nbPOST = 0;
-                        //~ $scope.apis[apiNb].nbPUT = 0;
-                        //~ // retrieve methods
+//////
+    $scope.getDetails = function(id)
+    {
+        accueil = false;
+        details = true;
+        $http({
+                method: 'GET',
+                url: ('/API/' + $id)
+            }).then(function (response)
+                    {
+                        // retrieve methods
                         //~ $scope.apis[apiNb].methods = response.data.records;
-                        //~ //
-                        //~ $scope.apis[apiNb].data = $scope.apis[apiNb].methods;   // only for debug
-                        //~ // count how many method in each category
-                        //~ for (var method in $scope.apis[apiNb].methods)
-                        //~ {
-                            //~ if ($scope.apis[apiNb].methods[method].method == 'GET')
-                                //~ $scope.apis[apiNb].nbGET = $scope.apis[apiNb].nbGET + 1;
-                            //~ if ($scope.apis[apiNb].methods[method].method == 'POST')
-                                //~ $scope.apis[apiNb].nbPOST = $scope.apis[apiNb].nbPOST + 1;
-                            //~ if ($scope.apis[apiNb].methods[method].method == 'PUT')
-                                //~ $scope.apis[apiNb].nbPUT = $scope.apis[apiNb].nbPUT + 1;
-                            //~ if ($scope.apis[apiNb].methods[method].method == 'DELETE')
-                                //~ $scope.apis[apiNb].nbDELETE = $scope.apis[apiNb].nbDELETE + 1;
-                        //~ }
-                    //~ },
-                    //~ function (response) {});
-    //~ }
+                    },
+                    function (response) {});
+    }
 });
         </script>
     </body>
