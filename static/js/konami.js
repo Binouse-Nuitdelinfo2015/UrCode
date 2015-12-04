@@ -1,4 +1,5 @@
 /*
+README and INSTALL
 The konami_code is easy to intall :
 - Create a directory to put the files where you want on the site
 (the path to this directory will be called path_to_directory int the next instructions)
@@ -74,6 +75,10 @@ function konami() {
 		var music = document.createElement("audio");
 		music.src = scriptSrc + "/starwars.mp3";
 		music.play();
+			music.addEventListener('ended', function() {
+			this.currentTime = 0;
+			this.play();
+		}, false);
 		
 		// starting the game loop at 60 frames per second
 		var frameRate = 60.0;
