@@ -10,12 +10,9 @@ The konami_code is easy to intall :
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 */
 
-<<<<<<< HEAD
-=======
 // Set the variable to path_to_directory (here /static/js)
 var scriptSrc = "/static/js";
 
->>>>>>> 06f0e5b6fafbbe0802bae7dfaf57fb0e164a18c6
 // TODO Remove jQuery because I don't use it enough
 // Replace it by JS
 
