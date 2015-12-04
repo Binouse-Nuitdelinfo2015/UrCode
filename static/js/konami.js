@@ -60,6 +60,8 @@ function konami() {
 		
 		createExplosion(x, y, "#525252");
 		createExplosion(x, y, "#FFA318");
+		
+		xwing.playSound();
 	});
 	
 	document.addEventListener("mousemove", function(evt) {
@@ -69,7 +71,7 @@ function konami() {
 	
 	// starting the game loop at 60 frames per second
 	var frameRate = 60.0;
-	var frameDelay = 1000.0/frameRate;
+	var frameDelay = 1000.0 / frameRate;
 	
 	setInterval(function()
 	{
@@ -91,15 +93,19 @@ function XWing() {
 	this.scale = 0.5; // Scale of the XWing compared to the source image
 	this.img = document.createElement("img");
 	this.img.src = scriptSrc + "/xwing.png";
+	this.sound = document.createElement("audio");
+	this.sound.src = scriptSrc + "/xwing.mp3";
+	document.body.appendChild(this.sound);
+	this.soundTimeout;
 	
 	// Function to move the cursor to the direction of the mouse
-	this.moveCursor = function() {
+	this.moveCursor = function () {
 		this.cursorX = (this.cursorX * this.cursorCoef + this.mouseX) / (this.cursorCoef + 1);
 		this.cursorY = (this.cursorY * this.cursorCoef + this.mouseY) / (this.cursorCoef + 1);
 	}
 	
 	// Function to draw the XWing and its cursor
-	this.draw = function(context2D)
+	this.draw = function (context2D)
 	{
 		// Changing context2D
 		context2D.save();
@@ -127,6 +133,15 @@ function XWing() {
 		// Restore the saved context2D
 		context2D.restore();
 	};
+	
+	this.playSound = function () {
+		clearTimeout(this.soundTimeout);
+		this.sound.play();
+		this.soundTimeout = setTimeout(function () {
+				xwing.sound.pause();
+				xwing.sound.currentTime = 0;
+		}, 500);
+	}
 }
 
 var canvas;
