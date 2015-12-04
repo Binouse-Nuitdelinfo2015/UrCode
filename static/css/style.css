@@ -24,6 +24,13 @@
 	border-bottom : solid #DDD 1px;
 }
 
+
+
+.link_button
+{
+	text-decoration: none;
+}
+
 /* ----------------------------------------------*/
 /* LISTE DES CATASTROPHES */
 /* ----------------------------------------------*/
@@ -59,10 +66,10 @@
 }
 
 /* ----------------------------------------------*/
-/* NEW USER FORM */
+/* FORM */
 /* ----------------------------------------------*/
 
-.new_user_page
+.form_page
 {
 	display: flex;
 	flex-direction: row;
@@ -75,7 +82,7 @@
 	height: 300px;
 }
 
-.new_user_form
+.form
 {
 	display: flex;
 	flex-direction: column;
@@ -84,6 +91,11 @@
 .new_user_form [type="submit"]
 {
 	width: 100px;
+}
+
+.new_event
+{
+	margin: auto;
 }
 
 /* ----------------------------------------------*/
