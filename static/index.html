@@ -6,14 +6,14 @@
         <!-- Importation du css material design de Google-->
         <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.blue-light_blue.min.css" />
         <!-- Importation du css perso-->
-        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-                <script src="/static/js/konami.js"></script>
+                <script src="/js/konami.js"></script>
     </head>
     <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="mainController">
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -76,7 +76,7 @@
                             <div id="p2" style="width:100%" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
                         </div>
 
-                        <div id="refresh-bar" ng-show="errorState">
+                        <div id="refresh-bar-error" ng-show="errorState">
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
                                     <h2>
@@ -95,7 +95,7 @@
                                 <div class="event-box-content">
                                     <header>
                                         <h3 class="catastrophe-name">
-                                            <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="details=true; getDetails(catastrophe.id)">
+                                            <button style="float:right" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="details=true; getDetailsCata(catastrophe.id)">
                                                 <i class="material-icons">more_vert</i>
                                             </button>
                                             <!-- nom de la catastrophe -->
@@ -135,7 +135,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="refresh-bar" ng-show="refreshStatus">
+                        <div id="refresh-bar-details" ng-show="refreshStatus">
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
                                     Loading
@@ -145,7 +145,7 @@
                             <div id="p2" style="width:100%" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
                         </div>
 
-                        <div id="refresh-bar" ng-show="errorState">
+                        <div id="refresh-bar-error-details" ng-show="errorState">
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
                                     <h2>
@@ -158,7 +158,7 @@
                             </div>
                         </div>
                         <!-- list start -->
-                        <div id="api-list" class="event-page">
+                        <div id="detailscata" class="event-page">
                             <div class="event-box">
                                 <header>
                                   <h3 class="catastrophe-name">
@@ -227,11 +227,11 @@ app.controller('mainController', function($scope, $http)
     }
 
 //////
-    $scope.getDetails = function(id)
+    $scope.getDetailsCata = function(id)
     {
         $http({
                 method: 'GET',
-                url: ('/API/' + $id)
+                url: ('/API/catastrophes/' + $id)
             }).then(function (response)
                     {
                         // retrieve methods

@@ -25,36 +25,35 @@ class APIHandler(tornado.web.RequestHandler):
         #self.write("API [" + str(time.time()) + "]: GET " + path_request)
         if path_request == "random":
             self.write(str(random.randint(0, 100)))
+        elif path_request == "timestamp":
+            self.write(str(time.time()))
         elif path_request == "test":
             jsonVar = {"records": []}
             catas = bdd.getCata()
             for cata in catas:
                 jsonVar["records"].append({"id": cata[0], "Name": cata[1], "Status": "", "DerniereActu": {"Date": "01234567890", "Description": "blablabla"}})
             self.write(json.dumps(jsonVar))
+        else:
+            self.set_status(400)
+            self.write("Bad Request")
+
+    def post(self, path_request):
+        self.set_status(501)
+        self.write("Not Implemented")
+
+    def put(self, path_request):
+        self.set_status(501)
+        self.write("Not Implemented")
+
+    def delete(self, path_request):
+        self.set_status(501)
+        self.write("Not Implemented")
 
 
-# Handler for ressources
-class RscHandler(tornado.web.RequestHandler):
-    def get(self, path_request):
-        if str(path_request).endswith(".css"):
-            self.set_header("Content-Type", "text/css; charset=UTF-8")
-        self.write(open(filePath + "css/" + path_request, 'rb').read())
 
-
-# Handler for HTML files
+# Handler for index page
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write(open(filePath + "index.html", 'rb').read())
-
-    def post(self):
-        try:
-            nom = self.get_argument("sample1")
-            descrip = self.get_argument("sample5")
-            print("nom :", nom)
-            print("description", descrip)
-            bdd.setCata(nom, time.time(), time.time(), "", "")
-        except tornado.web.HTTPError:   # no or wrong arguments
-            pass
         self.write(open(filePath + "index.html", 'rb').read())
 
 
@@ -67,22 +66,22 @@ def main():
 
     application = tornado.web.Application(
         [
-            (r'/static/img/(.*)', tornado.web.StaticFileHandler, {'path': 'static/img/'}),
-            (r'/static/css/(.*)', tornado.web.StaticFileHandler, {'path': 'static/css/'}),
-            (r'/static/js/(.*)', tornado.web.StaticFileHandler, {'path': 'static/js/'}),
             (r"/API/(.*)$", APIHandler),
+            (r'/img/(.*)', tornado.web.StaticFileHandler, {'path': filePath+'img/'}),
+            (r'/css/(.*)', tornado.web.StaticFileHandler, {'path': filePath+'css/'}),
+            (r'/js/(.*)', tornado.web.StaticFileHandler, {'path': filePath+'js/'}),
             (r"/", MainHandler),
-            (r"/(.*)", tornado.web.StaticFileHandler, {'path': 'static/'}),
+            (r"/(.*)", tornado.web.StaticFileHandler, {'path': filePath}),
         ],
         autoreload=True,
         debug=True
     )   # create an instance
 
-    if(os.path.isfile("cert/" + "default.key") and
-       os.path.isfile("cert/" + "default.cert")):
+    if os.path.isfile("cert/default.key") and os.path.isfile("cert/default.cert"):
         # bind https port
-        application.listen(4430, ssl_options={"certfile": os.path.join("cert/" + "default.cert"), "keyfile": os.path.join("cert/" + "default.key"), "cert_reqs": ssl.CERT_OPTIONAL})
-
+        application.listen(4430, ssl_options={"certfile": os.path.join("cert/default.cert"),
+                                              "keyfile": os.path.join("cert/default.key"),
+                                              "cert_reqs": ssl.CERT_OPTIONAL})
     # bind http port
     application.listen(8080)
     # loop forever for satisfy user's requests
