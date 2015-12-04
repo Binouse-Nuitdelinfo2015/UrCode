@@ -72,7 +72,7 @@ class AdminHandler(tornado.web.RequestHandler):
 # Handler for HTML files
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render(filePath + "index.html")
+        self.write(open(filePath + "index.html", 'rb').read())
 
 
 def main():
