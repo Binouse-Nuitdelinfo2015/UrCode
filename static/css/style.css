@@ -62,6 +62,19 @@
 /* NEW USER FORM */
 /* ----------------------------------------------*/
 
+.new_user_page
+{
+	display: flex;
+	flex-direction: row;
+	justify-content : space-between;
+}
+
+.new_user_page img
+{
+	width: 300px;
+	height: 300px;
+}
+
 .new_user_form
 {
 	display: flex;
