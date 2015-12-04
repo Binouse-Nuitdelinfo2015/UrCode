@@ -18,14 +18,6 @@ __title__ = "Nuit de l'info 2015 - Binouse"
 # var : directory name where the server will load in "pages" and "rsc"
 filePath = "static/"
 
-#def liste_dump(folder):
-#    dico = {}
-#    for root, dirs, files in os.walk(folder):
-#        for dump in files:
-#            path = "./" + root + "/" + dump
-#            dico[dump] = open(path).read().replace("login:", "").replace("password:", "").split("\n")[:-1]
-#    return dico
-
 
 # Handler for api
 class APIHandler(tornado.web.RequestHandler):
@@ -34,35 +26,11 @@ class APIHandler(tornado.web.RequestHandler):
         if path_request == "random":
             self.write(str(random.randint(0, 100)))
         elif path_request == "test":
-            self.write(
-                json.dumps(
-                    {
-                        "records":
-                            [
-                                {
-                                    "id": "0",
-                                    "Name": "test",
-                                    "Status": "test",
-                                    "DerniereActu":
-                                        {
-                                            "Date": "123456789",
-                                            "Description": "blablabla"
-                                        }
-                                },
-                                {
-                                    "id": "0",
-                                    "Name": "test",
-                                    "Status": "test",
-                                    "DerniereActu":
-                                        {
-                                            "Date": "123456789",
-                                            "Description": "blablabla"
-                                        }
-                                }
-                            ]
-                    }
-                )
-            )
+            jsonVar = {"records": []}
+            catas = bdd.getCata()
+            for cata in catas:
+                jsonVar["records"].append({"id": cata[0], "Name": cata[1], "Status": "", "DerniereActu": {"Date": "01234567890", "Description": "blablabla"}})
+            self.write(json.dumps(jsonVar))
 
 
 # Handler for ressources
@@ -73,9 +41,10 @@ class RscHandler(tornado.web.RequestHandler):
         self.write(open(filePath + "css/" + path_request, 'rb').read())
 
 
-class AdminHandler(tornado.web.RequestHandler):
+# Handler for HTML files
+class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("pages/admin/index.html")
+        self.write(open(filePath + "index.html", 'rb').read())
 
     def post(self):
         try:
@@ -83,12 +52,6 @@ class AdminHandler(tornado.web.RequestHandler):
             print("action :", action)
         except tornado.web.HTTPError:   # no or wrong arguments
             pass
-        self.render("pages/admin/index.html")
-
-
-# Handler for HTML files
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
         self.write(open(filePath + "index.html", 'rb').read())
 
 
@@ -103,8 +66,6 @@ def main():
             (r'/static/img/(.*)', tornado.web.StaticFileHandler, {'path': 'static/img/'}),
             (r'/static/css/(.*)', tornado.web.StaticFileHandler, {'path': 'static/css/'}),
             (r'/static/js/(.*)', tornado.web.StaticFileHandler, {'path': 'static/js/'}),
-            (r"/admin", AdminHandler),
-            (r"/admin/.*", AdminHandler),
             (r"/API/(.*)$", APIHandler),
             (r"/", MainHandler),
             (r"/(.*)", tornado.web.StaticFileHandler, {'path': 'static/'}),
