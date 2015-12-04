@@ -101,7 +101,7 @@ def main():
             (r"/admin/.*", AdminHandler),
             (r"/API/(.*)$", APIHandler),
             (r"/", MainHandler),
-            (r"/.*", MainHandler),
+            (r"/(.*)", tornado.web.StaticFileHandler, {'path': 'static/'}),
         ],
         autoreload=True,
         debug=True
