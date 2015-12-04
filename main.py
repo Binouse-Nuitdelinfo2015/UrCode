@@ -52,6 +52,7 @@ class MainHandler(tornado.web.RequestHandler):
             descrip = self.get_argument("sample5")
             print("nom :", nom)
             print("description", descrip)
+            bdd.setCata(nom, time.time(), time.time(), "", "")
         except tornado.web.HTTPError:   # no or wrong arguments
             pass
         self.write(open(filePath + "index.html", 'rb').read())
