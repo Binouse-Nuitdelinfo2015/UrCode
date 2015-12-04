@@ -4,6 +4,7 @@
 import os
 import ssl
 import time
+import bdd
 import random
 import tornado.ioloop
 import tornado.web
@@ -92,6 +93,11 @@ class MainHandler(tornado.web.RequestHandler):
 
 
 def main():
+
+    bdd.suprTables()
+    bdd.creaTables()
+    bdd.creaTuples()
+
     application = tornado.web.Application(
         [
             (r'/static/img/(.*)', tornado.web.StaticFileHandler, {'path': 'static/img/'}),
