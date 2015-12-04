@@ -5,11 +5,13 @@ The konami_code is easy to intall :
 - Put konami.js and xwing.png in path_to_directory
 - Add  this line in the head of your site :
 <script src="path_to_directory/konami.js"></script>
+- Modify the scriptSrc variable in this script
 - If your site doesn't use jQuery, add this line to the head of your site :
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 */
 
-var scriptSrc = "path_to_directory";
+// Set the variable to path_to_directory (here /static/js)
+var scriptSrc = "/static/js";
 
 // TODO Remove jQuery because I don't use it enough
 // Replace it by JS
