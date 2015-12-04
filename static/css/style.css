@@ -62,20 +62,19 @@
 /* FOOTER */
 /* ----------------------------------------------*/
 
-.main-footer
+/*.main-footer
 {
 	background: #333;
 	padding: 20px;
-}
+/*}
+*/
 
-.main-footer .footer-content
+.website-info
 {
-	width: 90%;
-	margin: auto;
-}
-
-.main-footer .footer-content p
-{
+	border-top: 1px solid #DDD;
+	position: absolute;
+	bottom: 0px;
+	padding: 10px;
 	margin: 0;
-	color: #FFF;
+	color: #333;
 }
