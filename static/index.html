@@ -87,20 +87,20 @@
 
                         <!-- list start -->
                         <div ng-init="refreshList()" id="api-list" class="event-list">
-                            <div class="event-box">
-                                <header>
-                                  <h3 class="catastrophe-name">
-                                    <!-- nom de la catastrophe -->
-                                    {{catastrophe.name}}
-                                  </h3>
-                                  <p class="last-update">Dernière mise à jour : {{catastrophe.lastUpdate}}</p>
-                                </header>
-                                <div ng-show="isOpen">
-                                    <div class="container" id="{{api.name}}-details">
-                                      <h5 ng-show="api.nbGET > 0">
-                                      <!-- Description de la catastrophe -->
-                                          GET ({{catastrophe.nbGET}})
-                                      </h5>
+                            <div  ng-repeat="catastrophe in catastrophes">
+                                <div class="event-box">
+                                    <header>
+                                      <h3 class="catastrophe-name">
+                                        <!-- nom de la catastrophe -->
+                                        {{catastrophe.Name}}
+                                      </h3>
+                                      <p class="last-update">Dernière mise à jour : {{catastrophe.DerniereActu.Date}}</p>
+                                    </header>
+                                    <div class="container" id="{{catastrophe.id}}-details">
+                                        <h5>
+                                            <!-- Description de la catastrophe -->
+                                            ({{catastrophe.DerniereActu.Description}})
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -207,14 +207,10 @@ app.controller('mainController', function($scope, $http)
 
         $http({
                 method: 'GET',
-                url: '/test'
+                url: '/API/test'
             }).then(function (response)
                     {
-                        $scope.catastrophes = response.data;
-                        //~ for (var cata in $scope.catastrophes)
-                        //~ {
-                            //~ $scope.catastrophes[cata].nb = apiNb;
-                        //~ }
+                        $scope.catastrophes = response.data.records;
                         $scope.refreshStatus = false;
                         window.componentHandler.upgradeDom();
                     },
